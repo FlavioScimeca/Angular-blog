@@ -1,0 +1,12 @@
+@use "src/variables" as variables;
+
+nav {
+  margin-top: 90px;
+  height: 50px;
+  background-color: variables.$navbar-footer-color;
+}
+
+.nav-link {
+  text-transform: uppercase;
+  color: variables.$primary-color;
+}
