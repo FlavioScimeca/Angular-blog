@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+@use "src/variables" as variables;
+
+p {
+  color: variables.$primary-color;
+  font-weight: bolder;
+  font-size: 2rem;
+}
