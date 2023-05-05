@@ -2,6 +2,12 @@
 
 @use "src/variables" as variables;
 
+* {
+  font-family: variables.$main-font;
+  color: variables.$text-body-color;
+  font-size: 12px;
+}
+
 p {
   color: variables.$primary-color;
   font-weight: bolder;
