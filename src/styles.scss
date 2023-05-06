@@ -23,3 +23,7 @@
   border: none;
   box-shadow: 0 0 33px -10px rgb(71, 114, 254, 0.3);
 }
+
+.bg-theme {
+  background: variables.$primary-color;
+}
