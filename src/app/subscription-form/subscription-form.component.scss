@@ -1,0 +1,25 @@
+@use "src/variables" as variables;
+
+.card {
+  background-color: variables.$secondary-color;
+}
+
+//! Da vedere
+input {
+  [type="text"] {
+    height: 60px;
+    padding-left: 20px;
+    font-size: 13px;
+    width: 100%;
+  }
+}
+
+.btn-sub {
+  border: none;
+  font-size: 13px;
+  background-color: variables.$primary-color;
+}
+
+.subs-text {
+  width: 400px;
+}

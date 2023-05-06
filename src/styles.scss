@@ -17,3 +17,8 @@
 .nav-link {
   color: variables.$primary-color;
 }
+
+.shadow-effect {
+  border: none;
+  box-shadow: 0 0 33px -10px rgb(71, 114, 254, 0.3);
+}
