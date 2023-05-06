@@ -6,6 +6,7 @@ import { SinglePostComponent } from './pages/single-post/single-post.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { TermsAndConditionComponent } from './pages/terms-and-condition/terms-and-condition.component';
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,12 +14,12 @@ const routes: Routes = [
   { path: 'post', component: SinglePostComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'terms-condition', component: TermsAndConditionComponent },
-  { path: 'contact', component: ContactUsComponent }
-
+  { path: 'contact', component: ContactUsComponent },
+  { path: 'dashboard', component: DashboardComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
