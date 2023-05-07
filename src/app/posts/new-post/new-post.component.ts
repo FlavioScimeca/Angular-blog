@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/services/categories.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-post',
@@ -10,15 +11,32 @@ export class NewPostComponent implements OnInit {
   slugTitle!: string;
   imgSrc: any = 'assets/placeholder-image.jpg';
   selectedImg!: any;
-
   categories!: any;
 
-  constructor(private categoryService: CategoriesService) {}
+  postForm!: any;
+
+  constructor(
+    private categoryService: CategoriesService,
+    private formB: FormBuilder
+  ) {
+    this.postForm = this.formB.group({
+      title: ['', [Validators.required, Validators.minLength(10)]],
+      slug: ['', [Validators.required]],
+      excerpt: ['', [Validators.required, Validators.minLength(50)]],
+      category: ['', [Validators.required]],
+      postImg: ['', [Validators.required]],
+      content: ['', [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {
     this.categoryService.loadData().subscribe((val) => {
       this.categories = val;
     });
+  }
+
+  get formControl() {
+    return this.postForm.controls;
   }
 
   generateSlug(event: any) {

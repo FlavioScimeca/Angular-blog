@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12 text-center p-3">
-      <form>
+      <form [formGroup]="postForm">
         <div class="row">
           <div class="col-md-7">
             <div class="card shadow-effect">
@@ -13,7 +13,32 @@
                     type="text"
                     class="form-control"
                     (keyup)="generateSlug($event)"
+                    formControlName="title"
+                    [ngClass]="{
+                      'is-invalid':
+                        formControl.title.touched && formControl.title.invalid
+                    }"
                   />
+                  <div *ngIf="formControl.title.errors?.required">
+                    <div
+                      class="alert alert-danger p-1 mt-2"
+                      *ngIf="
+                        formControl.title.touched && formControl.title.invalid
+                      "
+                    >
+                      Title is required
+                    </div>
+                  </div>
+                  <div *ngIf="formControl.title.errors?.minlength">
+                    <div
+                      class="alert alert-danger"
+                      *ngIf="
+                        formControl.title.touched && formControl.title.invalid
+                      "
+                    >
+                      Title must be at least 10 chart
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="slug">Slug</label>
@@ -23,16 +48,53 @@
                     type="text"
                     class="form-control"
                     [(ngModel)]="slugTitle"
+                    formControlName="slug"
+                    [ngClass]="{
+                      'is-invalid':
+                        formControl.slug.touched && formControl.slug.invalid
+                    }"
                   />
+                  <div *ngIf="formControl.slug.errors?.required">
+                    <div
+                      class="alert alert-danger p-1 mt-2"
+                      *ngIf="
+                        formControl.slug.touched && formControl.slug.invalid
+                      "
+                    >
+                      Slug is required
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="excerpt">Excerpt</label>
+                  <div
+                    *ngIf="
+                      formControl.excerpt.errors?.required ||
+                      formControl.excerpt.errors?.length
+                    "
+                  >
+                    <div
+                      class="alert alert-danger p-1 my-2"
+                      *ngIf="
+                        formControl.excerpt.touched &&
+                        formControl.excerpt.invalid
+                      "
+                    >
+                      Excerpt is required
+                    </div>
+                  </div>
                   <textarea
                     cols="30"
                     rows="10"
                     id="excerpt"
                     type="text"
                     class="form-control"
+                    formControlName="excerpt"
+                    [ngClass]="{
+                      'is-invalid':
+                        formControl.excerpt.touched &&
+                        formControl.excerpt.invalid
+                    }"
                   ></textarea>
                 </div>
               </div>
@@ -42,12 +104,29 @@
           <div class="col-md-5">
             <div class="form-group">
               <label for="">Please select a post category</label>
-              <select class="form-select">
+              <select
+                class="form-select"
+                formControlName="category"
+                [ngClass]="{
+                  'is-invalid':
+                    formControl.category.touched && formControl.category.invalid
+                }"
+              >
                 <option selected>Please select a category</option>
-                <option *ngFor="let category of categories" value="">
+                <option *ngFor="let category of categories" value="1">
                   {{ category.data.category.category }}
                 </option>
               </select>
+              <div *ngIf="formControl.category.errors?.required">
+                <div
+                  class="alert alert-danger p-1 mt-2"
+                  *ngIf="
+                    formControl.category.touched && formControl.category.invalid
+                  "
+                >
+                  Category is required
+                </div>
+              </div>
             </div>
 
             <div class="form-group">
@@ -62,7 +141,22 @@
                 class="form-control"
                 accept="image/*"
                 (change)="showPreview($event)"
+                formControlName="postImg"
+                [ngClass]="{
+                  'is-invalid':
+                    formControl.postImgtouched && formControl.postImginvalid
+                }"
               />
+              <div *ngIf="formControl.postImg.errors?.required">
+                <div
+                  class="alert alert-danger p-1 mt-2"
+                  *ngIf="
+                    formControl.postImg.touched && formControl.postImg.invalid
+                  "
+                >
+                  Image is required
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -73,7 +167,21 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="">Content</label>
-                  <textarea class="form-control" cols="30" rows="10"></textarea>
+                  <angular-editor
+                    placeholder="Add your content"
+                    formControlName="content"
+                  ></angular-editor>
+                  <div *ngIf="formControl.content.errors?.required">
+                    <div
+                      class="alert alert-danger p-1 mt-2"
+                      *ngIf="
+                        formControl.content.touched &&
+                        formControl.content.invalid
+                      "
+                    >
+                      Content is required
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
