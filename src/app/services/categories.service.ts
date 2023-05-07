@@ -21,6 +21,7 @@ export class CategoriesService {
       })
       .catch((err) => console.log(err));
   }
+
   loadData() {
     return this.NgFirestore.collection('categories')
       .snapshotChanges()
@@ -33,5 +34,29 @@ export class CategoriesService {
           })
         )
       );
+  }
+
+  updateData(id: string, inputData: Category) {
+    this.NgFirestore.collection('categories')
+      .doc(id)
+      .update(inputData)
+      .then(() => {
+        this.toastr.success('Category edited!');
+      });
+  }
+
+  deleteData(id: string) {
+    // this.NgFirestore.collection('categories')
+    //   .doc(id)
+    //   .delete()
+    //   .then(() => {
+    //     this.toastr.warning('Category deleted');
+    //   });
+
+    this.NgFirestore.doc(`categories/${id}`)
+      .delete()
+      .then(() => {
+        this.toastr.warning('Category deleted');
+      });
   }
 }

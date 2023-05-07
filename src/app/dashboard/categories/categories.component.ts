@@ -9,6 +9,9 @@ import { CategoriesService } from 'src/app/services/categories.service';
 })
 export class CategoriesComponent implements OnInit {
   categoryArray!: any;
+  formCategory!: string;
+  formStatus: string = 'Add';
+  categoryId!: string;
 
   constructor(private categoryService: CategoriesService) {}
 
@@ -25,8 +28,24 @@ export class CategoriesComponent implements OnInit {
       category: formData.value,
     };
 
-    this.categoryService.saveData(categoryData);
+    if (this.formStatus == 'Add') {
+      this.categoryService.saveData(categoryData);
+    } else if (this.formStatus == 'Edit') {
+      this.categoryService.updateData(this.categoryId, categoryData);
+    }
 
     formData.reset();
+  }
+
+  onEdit(data: any) {
+    console.log(data);
+
+    this.formCategory = data.data.category.category;
+    this.categoryId = data.id;
+    this.formStatus = 'Edit';
+  }
+
+  onDelete(id: string) {
+    this.categoryService.deleteData(id);
   }
 }
