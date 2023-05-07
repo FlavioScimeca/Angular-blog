@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Post } from 'src/app/models/post';
 
 @Component({
   selector: 'app-new-post',
@@ -54,5 +55,24 @@ export class NewPostComponent implements OnInit {
 
     reader.readAsDataURL(event.target.files[0]);
     this.selectedImg = event.target.files[0];
+  }
+
+  onSubmit() {
+    const postData: Post = {
+      title: this.postForm.value.title,
+      slug: this.postForm.value.slug,
+      category: {
+        categoryId: '',
+        category: '',
+      },
+      postImgPath: '',
+      excerpt: this.postForm.value.excerpt,
+      content: this.postForm.value.content,
+      isFeatured: false,
+      views: 0,
+      status: 'new',
+      createdAt: new Date(),
+    };
+    console.log(postData);
   }
 }
