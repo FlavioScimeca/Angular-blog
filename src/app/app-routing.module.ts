@@ -8,6 +8,8 @@ import { TermsAndConditionComponent } from './pages/terms-and-condition/terms-an
 import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoriesComponent } from './dashboard/categories/categories.component';
+import { AllPostComponent } from './posts/all-post/all-post.component';
+import { NewPostComponent } from './posts/new-post/new-post.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +20,9 @@ const routes: Routes = [
   { path: 'contact', component: ContactUsComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'categories', component: CategoriesComponent },
+
+  { path: 'posts', component: AllPostComponent },
+  { path: 'posts/new', component: NewPostComponent },
 ];
 
 @NgModule({
