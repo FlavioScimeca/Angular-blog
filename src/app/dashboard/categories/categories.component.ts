@@ -13,11 +13,17 @@ export class CategoriesComponent {
     let categoryData = {
       category: formData.value,
     };
+    let subcategoryData = {
+      category: 'subCategory',
+    };
 
     this.NgFirestore.collection('categories')
       .add(categoryData)
       .then((docRef) => {
         console.log(docRef);
+        this.NgFirestore.doc(`categories/${docRef.id}`)
+          .collection('subcategories')
+          .add(subcategoryData);
       })
       .catch((err) => console.log(err));
   }

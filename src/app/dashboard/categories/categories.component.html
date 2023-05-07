@@ -5,22 +5,38 @@
       <p class="text-center mb-5">You can add new categories from here... !</p>
 
       <form
-        class="d-flex align-items-center text-center justify-content-center"
+        class="d-flex text-center justify-content-center gap-2"
         #categoryForm="ngForm"
         (ngSubmit)="onSubmit(categoryForm)"
       >
-        <div class="form-group col-md-7 py-2">
+        <div class="form-group col-md-7">
           <input
             name="category"
             type="text"
             class="form-control shadow-effect"
             placeholder="Add new Category"
+            #newCategory="ngModel"
             ngModel
+            required
+            [ngClass]="{
+              'is-invalid': newCategory.touched && newCategory.invalid
+            }"
           />
+          <div
+            class="alert alert-danger p-1 mt-2"
+            *ngIf="newCategory.touched && newCategory.invalid"
+          >
+            Category field is required
+          </div>
         </div>
 
         <div class="col-md-2">
-          <button class="btn btn-block btn-info mb-2">Add Category</button>
+          <button
+            class="btn btn-block btn-info mb-2"
+            [disabled]="categoryForm.invalid"
+          >
+            Add Category
+          </button>
         </div>
       </form>
     </div>
