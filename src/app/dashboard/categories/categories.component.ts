@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Category } from 'src/app/models/category';
 import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class CategoriesComponent {
   constructor(private categoryService: CategoriesService) {}
 
   onSubmit(formData: any) {
-    let categoryData = {
+    let categoryData: Category = {
       category: formData.value,
     };
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Category } from '../models/category';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +8,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class CategoriesService {
   constructor(private NgFirestore: AngularFirestore) {}
 
-  saveData(inputData: any) {
+  saveData(inputData: Category) {
     this.NgFirestore.collection('categories')
       .add(inputData)
       .then((docRef) => {
