@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/models/post';
+import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
   selector: 'app-new-post',
@@ -18,6 +19,7 @@ export class NewPostComponent implements OnInit {
 
   constructor(
     private categoryService: CategoriesService,
+    private postService: PostsService,
     private formB: FormBuilder
   ) {
     this.postForm = this.formB.group({
@@ -58,12 +60,14 @@ export class NewPostComponent implements OnInit {
   }
 
   onSubmit() {
+    let splitted = this.postForm.value.category.split('-');
+
     const postData: Post = {
       title: this.postForm.value.title,
       slug: this.postForm.value.slug,
       category: {
-        categoryId: '',
-        category: '',
+        categoryId: splitted[0],
+        category: splitted[1],
       },
       postImgPath: '',
       excerpt: this.postForm.value.excerpt,
@@ -73,6 +77,9 @@ export class NewPostComponent implements OnInit {
       status: 'new',
       createdAt: new Date(),
     };
-    console.log(postData);
+
+    this.postService.uploadImage(this.selectedImg, postData);
+    this.postForm.reset();
+    this.imgSrc = 'assets/placeholder-image.jpg';
   }
 }
