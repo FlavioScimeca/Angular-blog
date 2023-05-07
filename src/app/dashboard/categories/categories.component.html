@@ -41,4 +41,27 @@
       </form>
     </div>
   </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6 mx-auto">
+      <div class="card shadow-effect p-3">
+        <table class="row-border hover">
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Category</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let category of categoryArray; index as i">
+              <td>{{ i + 1 }}</td>
+              <td>{{ category.data.category.category }}</td>
+              <td>{{ category.id }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
