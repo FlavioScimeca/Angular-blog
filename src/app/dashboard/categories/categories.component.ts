@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
   selector: 'app-categories',
@@ -7,24 +8,13 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent {
-  constructor(private NgFirestore: AngularFirestore) {}
+  constructor(private categoryService: CategoriesService) {}
 
   onSubmit(formData: any) {
     let categoryData = {
       category: formData.value,
     };
-    let subcategoryData = {
-      category: 'subCategory',
-    };
 
-    this.NgFirestore.collection('categories')
-      .add(categoryData)
-      .then((docRef) => {
-        console.log(docRef);
-        this.NgFirestore.doc(`categories/${docRef.id}`)
-          .collection('subcategories')
-          .add(subcategoryData);
-      })
-      .catch((err) => console.log(err));
+    this.categoryService.saveData(categoryData);
   }
 }
