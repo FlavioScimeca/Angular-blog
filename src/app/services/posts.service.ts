@@ -3,6 +3,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { Post } from '../models/post';
+import { Observable, map } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,8 @@ export class PostsService {
   constructor(
     private ngStorage: AngularFireStorage,
     private NgFirestore: AngularFirestore,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   uploadImage(selectedImage: string, postData: Post) {
@@ -36,6 +39,21 @@ export class PostsService {
       .add(postData)
       .then(() => {
         this.toastr.success('post added!');
+        this.router.navigate(['/posts']);
       });
+  }
+
+  loadData() {
+    return this.NgFirestore.collection('posts')
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, data };
+          })
+        )
+      );
   }
 }

@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/models/post';
+import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
   selector: 'app-all-post',
   templateUrl: './all-post.component.html',
-  styleUrls: ['./all-post.component.scss']
+  styleUrls: ['./all-post.component.scss'],
 })
-export class AllPostComponent {
+export class AllPostComponent implements OnInit {
+  postArray!: Array<any>;
 
+  constructor(private postsService: PostsService) {}
+
+  ngOnInit(): void {
+    this.postsService.loadData().subscribe((val) => (this.postArray = val));
+  }
 }
