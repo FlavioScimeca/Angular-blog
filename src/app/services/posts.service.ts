@@ -56,4 +56,9 @@ export class PostsService {
         )
       );
   }
+
+  loadSingleData(id: string) {
+    return this.NgFirestore.collection('posts').doc(id).valueChanges();
+    // this.NgFirestore.doc(`posts/${id}`).valueChanges()
+  }
 }

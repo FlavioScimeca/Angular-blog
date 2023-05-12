@@ -3,6 +3,7 @@ import { CategoriesService } from 'src/app/services/categories.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/models/post';
 import { PostsService } from 'src/app/services/posts.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-post',
@@ -16,20 +17,42 @@ export class NewPostComponent implements OnInit {
   categories!: any;
 
   postForm!: any;
+  singlePost!: any;
+
+  formStatus: string = 'Add new';
 
   constructor(
     private categoryService: CategoriesService,
     private postService: PostsService,
-    private formB: FormBuilder
+    private formB: FormBuilder,
+    private route: ActivatedRoute
   ) {
-    this.postForm = this.formB.group({
-      title: ['', [Validators.required, Validators.minLength(10)]],
-      slug: ['', [Validators.required]],
-      excerpt: ['', [Validators.required, Validators.minLength(50)]],
-      category: ['', [Validators.required]],
-      postImg: ['', [Validators.required]],
-      content: ['', [Validators.required]],
-    });
+    this.route.queryParams.subscribe((val) =>
+      postService.loadSingleData(val['id']).subscribe((post) => {
+        this.singlePost = post;
+
+        this.postForm = this.formB.group({
+          title: [
+            this.singlePost.title,
+            [Validators.required, Validators.minLength(10)],
+          ],
+          slug: [this.singlePost.slug, [Validators.required]],
+          excerpt: [
+            this.singlePost.excerpt,
+            [Validators.required, Validators.minLength(50)],
+          ],
+          category: [
+            `${this.singlePost.category.categoryId}-${this.singlePost.category.category}`,
+            [Validators.required],
+          ],
+          postImg: ['', [Validators.required]],
+          content: [this.singlePost.content, [Validators.required]],
+        });
+
+        this.imgSrc = this.singlePost.postImgPath;
+        this.formStatus = 'Edit';
+      })
+    );
   }
 
   ngOnInit(): void {

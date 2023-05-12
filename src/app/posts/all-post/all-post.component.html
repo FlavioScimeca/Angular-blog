@@ -35,7 +35,7 @@
             <tbody>
               <tr *ngFor="let post of postArray; index as i">
                 <td [width]="10">{{ i + 1 }}</td>
-                <td [width]="100">
+                <td [width]="50">
                   <img
                     src="{{ post.data.postImgPath }}"
                     alt="{{ post.data.title }}"
@@ -46,6 +46,15 @@
                 <td>{{ post.data.excerpt.slice(0, 20) + "..." }}</td>
                 <td>{{ post.data.category.category }}</td>
                 <td>{{ post.data.createdAt.toMillis() | date }}</td>
+                <td>
+                  <button
+                    class="btn btn-sm btn-warning"
+                    routerLink="/posts/new"
+                    [queryParams]="{ id: post.id }"
+                  >
+                    edit
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
