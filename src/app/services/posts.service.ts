@@ -96,4 +96,12 @@ export class PostsService {
         this.toastr.warning('Post deleted');
       });
   }
+
+  markFeatured(id: string, featuredPost: { isFeatured: boolean }) {
+    this.NgFirestore.doc(`posts/${id}`)
+      .update(featuredPost)
+      .then(() => {
+        this.toastr.info('Featured status updated');
+      });
+  }
 }

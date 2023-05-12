@@ -25,7 +25,7 @@
                 <th>No</th>
                 <th>Post Image</th>
                 <th>Title</th>
-                <th>Excerpt</th>
+                <!-- <th>Excerpt</th> -->
                 <th>Category</th>
                 <th>Date</th>
                 <th>Actions</th>
@@ -43,7 +43,7 @@
                   />
                 </td>
                 <td>{{ post.data.title }}</td>
-                <td>{{ post.data.excerpt.slice(0, 20) + "..." }}</td>
+                <!-- <td>{{ post.data.excerpt.slice(0, 20) + "..." }}</td> -->
                 <td>{{ post.data.category.category }}</td>
                 <td>{{ post.data.createdAt.toMillis() | date }}</td>
                 <td>
@@ -59,6 +59,20 @@
                     (click)="onDelete(post.data.postImgPath, post.id)"
                   >
                     Delete
+                  </button>
+                  <button
+                    *ngIf="!post.data.isFeatured"
+                    class="btn btn-sm btn-success ms-2"
+                    (click)="onFeatured(post.id, true)"
+                  >
+                    Make featured
+                  </button>
+                  <button
+                    *ngIf="post.data.isFeatured"
+                    class="btn btn-sm btn-info ms-2"
+                    (click)="onFeatured(post.id, false)"
+                  >
+                    Remove featured
                   </button>
                 </td>
               </tr>
