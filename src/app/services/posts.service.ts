@@ -17,7 +17,12 @@ export class PostsService {
     private router: Router
   ) {}
 
-  uploadImage(selectedImage: string, postData: Post) {
+  uploadImage(
+    selectedImage: string,
+    postData: Post,
+    formStatus: string,
+    id: string
+  ) {
     const filePath = `postIMG/${Date.now()}`;
 
     this.ngStorage.upload(filePath, selectedImage).then(() => {
@@ -29,7 +34,11 @@ export class PostsService {
         .subscribe((url) => {
           postData.postImgPath = url;
 
-          this.saveData(postData);
+          if (formStatus == 'edit') {
+            this.updateData(id, postData);
+          } else {
+            this.saveData(postData);
+          }
         });
     });
   }
@@ -60,5 +69,14 @@ export class PostsService {
   loadSingleData(id: string) {
     return this.NgFirestore.collection('posts').doc(id).valueChanges();
     // this.NgFirestore.doc(`posts/${id}`).valueChanges()
+  }
+
+  updateData(id: string, postData: Post) {
+    this.NgFirestore.doc(`posts/${id}`)
+      .update(postData)
+      .then(() => {
+        this.toastr.success('Post successfully update');
+        this.router.navigate(['/posts']);
+      });
   }
 }
