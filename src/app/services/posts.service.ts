@@ -79,4 +79,21 @@ export class PostsService {
         this.router.navigate(['/posts']);
       });
   }
+
+  deleteImage(postImgPath: string, postId: string) {
+    this.ngStorage.storage
+      .refFromURL(postImgPath)
+      .delete()
+      .then(() => {
+        this.deleteData(postId);
+      });
+  }
+
+  deleteData(postId: string) {
+    this.NgFirestore.doc(`posts/${postId}`)
+      .delete()
+      .then(() => {
+        this.toastr.warning('Post deleted');
+      });
+  }
 }

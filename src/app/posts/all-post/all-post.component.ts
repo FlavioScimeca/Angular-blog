@@ -15,4 +15,8 @@ export class AllPostComponent implements OnInit {
   ngOnInit(): void {
     this.postsService.loadData().subscribe((val) => (this.postArray = val));
   }
+
+  onDelete(postImgPath: string, postId: string) {
+    this.postsService.deleteImage(postImgPath, postId);
+  }
 }

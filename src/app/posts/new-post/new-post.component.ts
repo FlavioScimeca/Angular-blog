@@ -18,6 +18,7 @@ export class NewPostComponent implements OnInit {
 
   postForm!: any;
   singlePost!: any;
+  docId!: string;
 
   formStatus: string = 'Add new';
 
@@ -27,32 +28,43 @@ export class NewPostComponent implements OnInit {
     private formB: FormBuilder,
     private route: ActivatedRoute
   ) {
-    this.route.queryParams.subscribe((val) =>
-      postService.loadSingleData(val['id']).subscribe((post) => {
-        this.singlePost = post;
+    this.route.queryParams.subscribe((val) => {
+      this.docId = val['id'];
+      if (this.docId) {
+        postService.loadSingleData(val['id']).subscribe((post) => {
+          this.singlePost = post;
+          this.postForm = this.formB.group({
+            title: [
+              this.singlePost.title,
+              [Validators.required, Validators.minLength(10)],
+            ],
+            slug: [this.singlePost.slug, [Validators.required]],
+            excerpt: [
+              this.singlePost.excerpt,
+              [Validators.required, Validators.minLength(50)],
+            ],
+            category: [
+              `${this.singlePost.category.categoryId}-${this.singlePost.category.category}`,
+              [Validators.required],
+            ],
+            postImg: ['', [Validators.required]],
+            content: [this.singlePost.content, [Validators.required]],
+          });
 
-        this.postForm = this.formB.group({
-          title: [
-            this.singlePost.title,
-            [Validators.required, Validators.minLength(10)],
-          ],
-          slug: [this.singlePost.slug, [Validators.required]],
-          excerpt: [
-            this.singlePost.excerpt,
-            [Validators.required, Validators.minLength(50)],
-          ],
-          category: [
-            `${this.singlePost.category.categoryId}-${this.singlePost.category.category}`,
-            [Validators.required],
-          ],
-          postImg: ['', [Validators.required]],
-          content: [this.singlePost.content, [Validators.required]],
+          this.imgSrc = this.singlePost.postImgPath;
+          this.formStatus = 'Edit';
         });
-
-        this.imgSrc = this.singlePost.postImgPath;
-        this.formStatus = 'Edit';
-      })
-    );
+      } else {
+        this.postForm = this.formB.group({
+          title: ['', [Validators.required, Validators.minLength(10)]],
+          slug: ['', [Validators.required]],
+          excerpt: ['', [Validators.required, Validators.minLength(50)]],
+          category: ['', [Validators.required]],
+          postImg: ['', [Validators.required]],
+          content: ['', [Validators.required]],
+        });
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -105,7 +117,7 @@ export class NewPostComponent implements OnInit {
       this.selectedImg,
       postData,
       this.formStatus,
-      this.singlePost.id
+      this.docId
     );
     this.postForm.reset();
     this.imgSrc = 'assets/placeholder-image.jpg';

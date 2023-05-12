@@ -52,7 +52,13 @@
                     routerLink="/posts/new"
                     [queryParams]="{ id: post.id }"
                   >
-                    edit
+                    Edit
+                  </button>
+                  <button
+                    class="btn btn-sm btn-danger ms-2"
+                    (click)="onDelete(post.data.postImgPath, post.id)"
+                  >
+                    Delete
                   </button>
                 </td>
               </tr>
