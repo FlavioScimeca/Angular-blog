@@ -1,5 +1,15 @@
-<header class="navbar navbar-expand-lg fixed-top bg-white">
-  <div class="container justify-content-center">
+<header class="navbar navbar-expand-lg fixed-top bg-white shadow-effect">
+  <div class="container justify-content-around">
     <a href="#" class="site-logo">Ng-blog</a>
+
+    <div *ngIf="isLoggedIn$ | async">
+      <a href="#"> {{ userEmail }} </a>
+      <button
+        class="btn btn-sm btn-outline-warning text-theme-primary ms-3"
+        (click)="onLogout()"
+      >
+        Logout
+      </button>
+    </div>
   </div>
 </header>
