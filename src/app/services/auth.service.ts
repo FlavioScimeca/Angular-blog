@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoggedInGuard: boolean = false;
 
   constructor(
     private ngAuth: AngularFireAuth,
@@ -23,7 +24,10 @@ export class AuthService {
       .then((logRef) => {
         this.toastr.success('Logged in successfully');
         this.loadUser();
+
         this.loggedIn.next(true);
+        this.isLoggedInGuard = true;
+
         setTimeout(() => {
           this.router.navigate(['/dashboard']);
         }, 1000);
@@ -41,7 +45,10 @@ export class AuthService {
   logout() {
     this.ngAuth.signOut().then(() => {
       this.toastr.info('User logged out');
+
       this.loggedIn.next(false);
+      this.isLoggedInGuard = false;
+
       localStorage.removeItem('user');
       this.router.navigate(['/login']);
     });
