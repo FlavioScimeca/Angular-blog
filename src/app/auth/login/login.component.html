@@ -8,9 +8,24 @@
             <p>Please login to your admin account to post a new post</p>
           </div>
 
-          <form>
+          <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
             <div class="form-group mb-3">
-              <input type="email" class="form-control" placeholder="Email" />
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email"
+                name="email"
+                ngModel
+                required
+                #Email="ngModel"
+                [ngClass]="{ 'is-invalid': Email.touched && Email.invalid }"
+              />
+              <div
+                class="alert alert-danger mt-2"
+                *ngIf="Email.touched && Email.invalid"
+              >
+                <div>Email empty!</div>
+              </div>
             </div>
 
             <div class="form-group mb-3">
@@ -18,10 +33,26 @@
                 type="password"
                 class="form-control"
                 placeholder="Password"
+                name="password"
+                ngModel
+                required
+                #Password="ngModel"
+                [ngClass]="{
+                  'is-invalid': Password.touched && Password.invalid
+                }"
               />
+
+              <div
+                class="alert alert-danger mt-2"
+                *ngIf="Password.touched && Password.invalid"
+              >
+                Password empty!
+              </div>
             </div>
 
-            <button class="btn btn-info w-100">Login</button>
+            <button class="btn btn-info w-100" [disabled]="loginForm.invalid">
+              Login
+            </button>
           </form>
         </div>
       </div>
