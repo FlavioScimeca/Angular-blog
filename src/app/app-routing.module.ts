@@ -10,6 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoriesComponent } from './dashboard/categories/categories.component';
 import { AllPostComponent } from './posts/all-post/all-post.component';
 import { NewPostComponent } from './posts/new-post/new-post.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
 
   { path: 'posts', component: AllPostComponent },
   { path: 'posts/new', component: NewPostComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
