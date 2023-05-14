@@ -1,9 +1,8 @@
 @use "src/variables" as variables;
 
 .featured-section {
-  padding-left: 130px;
-  padding-right: 130px;
-  padding-bottom: 130px;
+  padding: 0 3rem;
+  padding-bottom: 7rem;
 
   background-color: variables.$primary-color;
 }

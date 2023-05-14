@@ -46,7 +46,7 @@
                 <!-- <td>{{ post.data.excerpt.slice(0, 20) + "..." }}</td> -->
                 <td>{{ post.data.category.category }}</td>
                 <td>{{ post.data.createdAt.toMillis() | date }}</td>
-                <td>
+                <td class="d-flex flex-column gap-2">
                   <button
                     class="btn btn-sm btn-warning"
                     routerLink="/posts/new"
@@ -55,21 +55,21 @@
                     Edit
                   </button>
                   <button
-                    class="btn btn-sm btn-danger ms-2"
+                    class="btn btn-sm btn-danger"
                     (click)="onDelete(post.data.postImgPath, post.id)"
                   >
                     Delete
                   </button>
                   <button
                     *ngIf="!post.data.isFeatured"
-                    class="btn btn-sm btn-success ms-2"
+                    class="btn btn-sm btn-success"
                     (click)="onFeatured(post.id, true)"
                   >
                     Make featured
                   </button>
                   <button
                     *ngIf="post.data.isFeatured"
-                    class="btn btn-sm btn-info ms-2"
+                    class="btn btn-sm btn-info"
                     (click)="onFeatured(post.id, false)"
                   >
                     Remove featured
