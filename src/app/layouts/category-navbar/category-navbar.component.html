@@ -3,7 +3,15 @@
     <div class="col-12">
       <ul class="navbar justify-content-center">
         <li class="nav-item mx-1" *ngFor="let category of categoryArray">
-          <a href="" class="nav-link">{{ category.data.category.category }}</a>
+          <a
+            [routerLink]="[
+              '/category',
+              category.data.category.category,
+              category.id
+            ]"
+            class="nav-link"
+            >{{ category.data.category.category }}</a
+          >
         </li>
       </ul>
     </div>

@@ -59,4 +59,20 @@ export class CategoriesService {
         this.toastr.warning('Category deleted');
       });
   }
+
+  loadCategoryPosts(categoryId: string) {
+    return this.NgFirestore.collection('posts', (ref) =>
+      ref.where('category.categoryId', '==', categoryId)
+    )
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, data };
+          })
+        )
+      );
+  }
 }
