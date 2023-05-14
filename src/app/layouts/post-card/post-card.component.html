@@ -1,4 +1,8 @@
-<div class="card m-1 shadow-effect h-100" *ngIf="status">
+<a
+  class="card m-1 shadow-effect h-100"
+  *ngIf="status"
+  [routerLink]="['/post', postInput.id]"
+>
   <img src="{{ postInput.data.postImgPath }}" class="card-img-top" alt="" />
 
   <div class="card-body">
@@ -19,4 +23,4 @@
       >Last update {{ postInput.data.createdAt.toMillis() | date }}</small
     >
   </div>
-</div>
+</a>

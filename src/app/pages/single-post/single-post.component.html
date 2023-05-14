@@ -1,46 +1,24 @@
-<div class="container">
+<div class="container" *ngIf="status">
   <div class="row">
     <div class="col-md-9">
       <div class="card shadow-effect">
         <img
-          src="https://images.pexels.com/photos/3754810/pexels-photo-3754810.jpeg"
+          src="{{ postData.postImgPath }}"
           class="card-img-top img-fluid"
           alt=""
         />
         <div class="card-body">
-          <small class="bg-light text-center text-danger">Design</small>
+          <small class="bg-light text-center text-danger">
+            {{ postData.category.category }}
+          </small>
           <small class="bg-light text-success text-center ms-2">Featured</small>
           <small class="bg-light text-info text-center ms-2">Views - 100</small>
           <small class="bg-light text-warning text-center ms-2"
-            >Last Updateed 30- sept- 2021</small
-          >
+            >Last Updateed {{ postData.createdAt.toMillis() | date }}
+          </small>
 
-          <h1 class="my-2">How to start a blog in 2023 with bootstrap</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui
-            voluptatem esse, temporibus obcaecati fugiat blanditiis cum quia
-            eligendi sapiente quos nisi sunt recusandae quo maiores, tempora rem
-            eos quaerat? Pariatur quis iste, voluptatum corporis esse odio optio
-            adipisci maiores et repudiandae ut suscipit impedit fugit quidem,
-            velit reiciendis animi. Ducimus nesciunt dolor repellat enim,
-            aperiam harum fugiat distinctio cumque a totam architecto veniam
-            illo expedita hic dolorem quisquam ratione debitis labore obcaecati
-            cupiditate itaque odit beatae. Ipsum veritatis aliquam aut ea neque
-            et quas necessitatibus error, aperiam sunt enim libero architecto
-            rem voluptatem dolore pariatur rerum? Rem commodi magnam
-            consequuntur, ipsam, eveniet odio reiciendis, impedit repellat
-            voluptatem perferendis ab! Id optio ipsam earum nemo reprehenderit
-            dignissimos iste, odit at laudantium possimus rerum expedita
-            voluptates natus commodi nihil dolorem assumenda illum ex
-            accusantium aut! Consequuntur dolores minus earum iste fuga
-            cupiditate, iure non dignissimos impedit harum fugiat accusamus
-            ducimus? Neque cum, esse possimus corrupti, quo perferendis officia
-            dignissimos sunt quidem, quasi nihil iusto minima? Officiis commodi
-            eligendi at cum qui ea facilis placeat est officia fuga provident
-            consequatur iusto quas nobis voluptates maxime molestiae molestias
-            odit, animi quo. Dolorem dolores quaerat, veniam consectetur
-            adipisci dolore perspiciatis maxime, voluptas quae reiciendis autem.
-          </p>
+          <h1 class="my-2">{{ postData.title }}</h1>
+          <p [innerHTML]="postData.content"></p>
         </div>
       </div>
 
@@ -48,12 +26,10 @@
       <app-comment-list></app-comment-list>
     </div>
 
-    <div class="col-md-3">
-      <app-post-card></app-post-card>
-      <app-post-card></app-post-card>
-      <app-post-card></app-post-card>
-      <app-post-card></app-post-card>
-      <app-post-card></app-post-card>
-    </div>
+    <ng-container *ngIf="postsArray.length > 0">
+      <div class="col-md-3" *ngFor="let post of postsArray.slice(0, 4)">
+        <app-post-card [postInput]="post"></app-post-card>
+      </div>
+    </ng-container>
   </div>
 </div>

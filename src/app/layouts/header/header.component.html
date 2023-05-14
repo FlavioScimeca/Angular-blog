@@ -1,6 +1,6 @@
 <header class="navbar navbar-expand-lg fixed-top bg-white shadow-effect">
   <div class="container justify-content-around">
-    <a href="#" class="site-logo">Ng-blog</a>
+    <a [routerLink]="['/']" class="site-logo">Ng-blog</a>
 
     <div *ngIf="isLoggedIn$ | async">
       <a href="#"> {{ userEmail }} </a>
