@@ -75,4 +75,20 @@ export class CategoriesService {
         )
       );
   }
+
+  loadSimilarCategoryPosts(categoryId: string) {
+    return this.NgFirestore.collection('posts', (ref) =>
+      ref.where('category.categoryId', '==', categoryId).limit(3)
+    )
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, data };
+          })
+        )
+      );
+  }
 }

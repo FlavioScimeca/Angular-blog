@@ -3,9 +3,9 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ToastrService } from 'ngx-toastr';
 import { Post } from '../models/post';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
 import { Router } from '@angular/router';
-
+import * as firebase from 'firebase/firestore';
 @Injectable({
   providedIn: 'root',
 })
@@ -134,6 +134,18 @@ export class PostsService {
       .update(featuredPost)
       .then(() => {
         this.toastr.info('Featured status updated');
+      });
+  }
+
+  countViews(postId: string) {
+    const viewsCount = {
+      views: firebase.increment(1),
+    };
+
+    this.NgFirestore.doc(`posts/${postId}`)
+      .update(viewsCount)
+      .then(() => {
+        console.log('Views incremented');
       });
   }
 }

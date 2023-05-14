@@ -11,8 +11,14 @@
           <small class="bg-light text-center text-danger">
             {{ postData.category.category }}
           </small>
-          <small class="bg-light text-success text-center ms-2">Featured</small>
-          <small class="bg-light text-info text-center ms-2">Views - 100</small>
+          <small
+            class="bg-light text-success text-center ms-2"
+            *ngIf="postData.isFeatured"
+            >Featured</small
+          >
+          <small class="bg-light text-info text-center ms-2"
+            >Views - {{ postData.views }}</small
+          >
           <small class="bg-light text-warning text-center ms-2"
             >Last Updateed {{ postData.createdAt.toMillis() | date }}
           </small>
@@ -26,10 +32,14 @@
       <app-comment-list></app-comment-list>
     </div>
 
-    <ng-container *ngIf="postsArray.length > 0">
-      <div class="col-md-3" *ngFor="let post of postsArray.slice(0, 4)">
-        <app-post-card [postInput]="post"></app-post-card>
+    <div class="col-md-3">
+      <div class="row">
+        <app-post-card
+          class="mt-1"
+          *ngFor="let post of postsArray"
+          [postInput]="post"
+        ></app-post-card>
       </div>
-    </ng-container>
+    </div>
   </div>
 </div>

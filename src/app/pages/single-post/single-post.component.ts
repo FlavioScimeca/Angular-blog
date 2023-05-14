@@ -22,11 +22,13 @@ export class SinglePostComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((val) => {
+      this.postsService.countViews(val['id']);
+
       this.postsService.loadSingleData(val['id']).subscribe((posts) => {
         this.postData = posts;
 
         this.categoriesService
-          .loadCategoryPosts(this.postData.category.categoryId)
+          .loadSimilarCategoryPosts(this.postData.category.categoryId)
           .subscribe((posts) => {
             this.postsArray = posts;
           });

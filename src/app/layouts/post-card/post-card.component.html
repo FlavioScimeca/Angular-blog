@@ -9,7 +9,11 @@
     <small class="bg-light text-danger text-center">{{
       postInput.data.category.category
     }}</small>
-    <small class="bg-light text-success text-center ms-3">Featured</small>
+    <small
+      class="bg-light text-success text-center ms-3"
+      *ngIf="postInput.data.isFeatured"
+      >Featured</small
+    >
     <small class="bg-light text-info text-center ms-3">{{
       postInput.data.views
     }}</small>
