@@ -66,6 +66,38 @@ export class PostsService {
       );
   }
 
+  loadFeaturedData() {
+    return this.NgFirestore.collection('posts', (ref) =>
+      ref.where('isFeatured', '==', true).limit(4)
+    )
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, data };
+          })
+        )
+      );
+  }
+
+  loadLatestdData() {
+    return this.NgFirestore.collection('posts', (ref) =>
+      ref.orderBy('createdAt')
+    )
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, data };
+          })
+        )
+      );
+  }
+
   loadSingleData(id: string) {
     return this.NgFirestore.collection('posts').doc(id).valueChanges();
     // this.NgFirestore.doc(`posts/${id}`).valueChanges()

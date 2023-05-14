@@ -1,25 +1,22 @@
-<div class="card m-1 shadow-effect">
-  <img
-    src="https://images.pexels.com/photos/3754810/pexels-photo-3754810.jpeg"
-    class="card-img-top"
-    alt=""
-  />
+<div class="card m-1 shadow-effect h-100" *ngIf="status">
+  <img src="{{ postInput.data.postImgPath }}" class="card-img-top" alt="" />
 
   <div class="card-body">
-    <small class="bg-light text-danger text-center">Design</small>
+    <small class="bg-light text-danger text-center">{{
+      postInput.data.category.category
+    }}</small>
     <small class="bg-light text-success text-center ms-3">Featured</small>
-    <small class="bg-light text-info text-center ms-3">Views - 100</small>
+    <small class="bg-light text-info text-center ms-3">{{
+      postInput.data.views
+    }}</small>
 
-    <h5 class="mt-1">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    </h5>
+    <h5 class="mt-1">{{ postInput.data.title }}</h5>
     <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit ex, quas
-      porro voluptates in doloremque esse.
+      {{ postInput.data.excerpt.slice(0, 20) + "..." }}
     </p>
 
     <small class="bg-light text-warning text-center ml-3"
-      >Last update sep-30 ,2020</small
+      >Last update {{ postInput.data.createdAt.toMillis() | date }}</small
     >
   </div>
 </div>

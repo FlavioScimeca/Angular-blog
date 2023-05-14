@@ -2,8 +2,15 @@
 
 nav {
   margin-top: 90px;
-  height: 50px;
+  height: 40px;
   background-color: variables.$navbar-footer-color;
+  li {
+    list-style-type: none;
+    margin: 0 0.4rem;
+    padding: 4px;
+    border: 0.7px solid rgb(31, 30, 30);
+    border-radius: 5px;
+  }
 }
 
 .nav-link {
